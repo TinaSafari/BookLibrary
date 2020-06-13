@@ -37,9 +37,9 @@ class Book extends Component {
                     <div className="book-shelf-changer">
                         <select>
                             <option value="move" disabled>Move to...</option>
-                            <option value="currentlyReading">Currently Reading</option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
+                            <option value="currentlyReading" selected={'CR' === this.props.selectIdentifier}>Currently Reading</option>
+                            <option value="wantToRead" selected={'WR' === this.props.selectIdentifier}>Want to Read</option>
+                            <option value="read" selected={'READ' === this.props.selectIdentifier}>Read</option>
                             <option value="none">None</option>
                         </select>
                     </div>
