@@ -31,26 +31,29 @@ class Book extends Component {
                     <div className="book-cover" style={{
                         width: 128,
                         height: 193,
-                        backgroundImage: `url( ${this.props.imageSrc} )`
+                        backgroundImage: `url( ${this.props.bookProp.thumbnail} )`
+
                     }}>
                     </div>
                     <div className="book-shelf-changer">
                         <select>
                             <option value="move" disabled>Move to...</option>
-                            <option value="currentlyReading" selected={'CR' === this.props.selectIdentifier}>Currently Reading</option>
-                            <option value="wantToRead" selected={'WR' === this.props.selectIdentifier}>Want to Read</option>
-                            <option value="read" selected={'READ' === this.props.selectIdentifier}>Read</option>
+                            <option value="currentlyReading" selected={'currentlyReading' === this.props.bookProp.shelf}>Currently Reading</option>
+                            <option value="wantToRead" selected={'wantToRead' === this.props.bookProp.shelf}>Want to Read</option>
+                            <option value="read" selected={'read' === this.props.bookProp.shelf}>Read</option>
                             <option value="none">None</option>
                         </select>
                     </div>
                 </div>
-                <div className="book-title">{this.props.title}</div>
-                <div className="book-authors">{this.props.author}</div>
+                <div className="book-title">{this.props.bookProp.title}</div>
+                <div className="book-authors">{this.props.bookProp.authors}</div>
+                <div className="book-pageCount">{this.props.bookProp.pageCount}</div>
+                <div className="book-language">{this.props.bookProp.language}</div>
             </div>
             // <div className="Book">
             //     <div className="Book-information">
-            //         <h3>{this.props.book.name}</h3>
-            //         <p>{this.props.book.titel} | {this.props.book.author} </p>
+            //         <h3>{this.props.bookProp.name}</h3>
+            //         <p>{this.props.bookProp.titel} | {this.props.bookProp.author} </p>
             //     </div>
             //     {this.renderAction()}
             // </div>
