@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import Book from "../Book/Book";
-import '../../App.css'
+import Book from "../../Book/Book";
+import '../../../App.css'
 
 class Bookshelf extends Component {
     render() {
+        console.log(this.props.bookslist)
+        console.log(this.props.shelfindicator)
 
-        if (this.props.shelfProp === 'currentlyReading') {
+        if (this.props.shelfindicator === 'currentlyReading') {
             this.title = 'Currently Reading'
-        } else if (this.props.shelfProp === 'wantToRead') {
+        } else if (this.props.shelfindicator === 'wantToRead') {
             this.title = 'Want to Read'
         } else {
             this.title = 'Read'
@@ -19,8 +21,8 @@ class Bookshelf extends Component {
                 <div className="bookshelf-books">
                     <ol className="books-grid">
                         {
-                            this.props.booksProp.filter(book => (
-                                    book.shelf === this.props.shelfProp
+                            this.props.bookslist.filter(book => (
+                                    book.shelf === this.props.shelfindicator
                                 )
                             ).map(book => {
                                 return <li><Book bookProp={book}
