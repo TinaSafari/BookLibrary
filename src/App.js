@@ -31,7 +31,7 @@ class BooksApp extends React.Component {
         console.log(this.state.Books)
         return (
             <div>
-                <Route exact='/' render={() => (
+                <Route exact path='/' render={() => (
                     // TODO add bookshelves component here
                     <Bookshelves bookdata={this.state.Books}/>
 

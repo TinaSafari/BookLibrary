@@ -1,66 +1,72 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import Book from "../Book/Book";
+import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
+import * as BooksAPI from '../../BooksAPI'
 
-class Search extends Component{
-    static propTypes = {
-        Books: PropTypes.array.isRequired,
-        shelfStatus: PropTypes.func.isRequired,
-    }
+class Search extends Component {
+
     state = {
-        query: ''
+        query: '',
+        searchResult: []
     }
-    updateQuery = (query) => {
-        this.setState(() => ({
-            query: query.trim()
-        }))
+
+
+    updateQuery = (event) => {
+        this.setState({query: event.target.value})
+        this.callSearchBookAPI(this.state.query)
+        }
+
+
+    callSearchBookAPI = (queryToSearch) => {
+        BooksAPI.search(queryToSearch)
+            .then((searchResult) => {
+                this.setState(() => ({
+                    searchResult
+                }))
+            })
     }
-    clearQuery = () => {
-        this.updateQuery('')
-    }
+
+    // clearQuery = () => {
+    //     this.updateQuery('')
+    // }
     render() {
-        const { query } = this.state
-        const { Books, shelfStatus } = this.props
+        const {query} = this.state
+        const {searchlist} = this.props
 
-        const showSearchPage = query === ''
-            ? Books
-            : Books.filter((c) => (
-                c.name.toLowerCase().includes(query.toLowerCase())
-            ))
+        // const search = query === ''
+        //     ? searchlist
+        //     : searchlist.filter((c) => (
+        //         c.name.toLowerCase().includes(query.toLowerCase())
+        //     ))
 
-        console.log(this.props.searchlist)
-        return(
-            <div>
-                <Book bookProp={this.props.searchlist}/>
-                <Link
-                    to='/search'
-                    className='open-search'
-                >Add a book</Link>
+        console.log(searchlist)
+        console.log(this.state)
+        return (
+
+            <div className="search-books">
+                <div className="search-books-bar">
+                    <Link
+                        className="close-search"
+                        to='/'>
+                        Close
+                    </Link>
+                    <div className="search-books-input-wrapper">
+                        <form>
+                            <input
+                                type="text"
+                                placeholder="Search by title or authors"
+                                value={query}
+                                onChange={this.updateQuery}/>
+                        </form>
+
+                    </div>
+                </div>
+                <div className="search-books-results">
+
+                </div>
             </div>
 
-        // {this.props.showSearchPage ? (
-        //     <div className="search-books">
-        //         <div  className="search-books-bar">
-        //             <button className="close-search"
-        //                     onClick={() => this.setState({showSearchPage: false})}>Close
-        //             </button>
-        //             <div className="search-books-input-wrapper">
-        //                 <input type="text" placeholder="Search by title or authors"/>
-        //         </div>
-        //         <div className="search-books-results">
-        //             <ol className="books-grid"></ol>
-        //         </div>
-        //     </div>
-        // ) : (
-        //     <div className="list-books">
-        //         <div className="list-books-title">  }
-        //
-        //
-        // </div>
 
-
-            )
+        )
     }
 
 }
