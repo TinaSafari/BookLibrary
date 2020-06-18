@@ -8,20 +8,21 @@ class Search extends Component {
         query: '',
         searchResult: []
     }
-    updateQuery = (queryFromSearchBar) => {
-        this.setState(() => ({
-            query: queryFromSearchBar.trim()
-        }))
-        this.callSearchBookAPI(queryFromSearchBar)
-    }
+
+
+    updateQuery = (event) => {
+        this.setState({query: event.target.value})
+        this.callSearchBookAPI(this.state.query)
+        }
+
 
     callSearchBookAPI = (queryToSearch) => {
-       BooksAPI.search(queryToSearch)
-           .then((Books) => {
-               this.setState( () => ({
-                       Books
-                   }))
-           } )
+        BooksAPI.search(queryToSearch)
+            .then((searchResult) => {
+                this.setState(() => ({
+                    searchResult
+                }))
+            })
     }
 
     // clearQuery = () => {
@@ -49,11 +50,13 @@ class Search extends Component {
                         Close
                     </Link>
                     <div className="search-books-input-wrapper">
-                        <input
-                            type="text"
-                            placeholder="Search by title or authors"
-                            value={query}
-                            onChange={(event) => this.updateQuery(event.target.value)}/>
+                        <form>
+                            <input
+                                type="text"
+                                placeholder="Search by title or authors"
+                                value={query}
+                                onChange={this.updateQuery}/>
+                        </form>
 
                     </div>
                 </div>
