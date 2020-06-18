@@ -7,13 +7,16 @@ class Search extends Component {
 
     state = {
         query: '',
+        rawUserInput: '',
         searchResult: []
     }
 
     updateQuery = (event) => {
-        const userInput = event.target.value.trim()
-        this.setState({query: userInput})
-        this.callSearchBookAPI(userInput)
+        // we lost space here
+        this.setState({rawUserInput: event.target.value})
+        const trimmedUserInput = event.target.value.trim()
+        this.setState({query: trimmedUserInput})
+        this.callSearchBookAPI(trimmedUserInput)
     }
 
     callSearchBookAPI = (userInput) => {
@@ -32,7 +35,8 @@ class Search extends Component {
     }
 
     render() {
-        const {query} = this.state
+        console.log(this.state)
+        const {rawUserInput} = this.state
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -46,7 +50,7 @@ class Search extends Component {
                             <input
                                 type="text"
                                 placeholder="Search by title or authors"
-                                value={query}
+                                value={rawUserInput}
                                 onChange={this.updateQuery}/>
                         </form>
 
@@ -56,8 +60,7 @@ class Search extends Component {
                     <ol className="books-grid">
                         {
                             this.state.searchResult.map(book => {
-                                return <li><Book bookProp={book}
-                                /></li>
+                                return <li key={book.id}><Book bookProp={book}/></li>
                             })
                         }
                     </ol>
