@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import * as BooksAPI from '../../BooksAPI'
 import Book from "../Book/Book";
 
+//This search component has a prop called booksOnShelves that contains list of books on all shelves
 class Search extends Component {
 
     state = {
@@ -24,11 +25,12 @@ class Search extends Component {
             this.setState({searchResult: []})
         } else {
             BooksAPI.search(userInput)
-                .then((searchResult) => {
-                    if (searchResult.error) {
+                .then((searchResultFromServer) => {
+                    if (searchResultFromServer.error) {
                         this.setState({searchResult: []})
                     } else {
-                        this.setState({searchResult: searchResult})
+                        console.log(searchResultFromServer)
+                        this.setState({searchResult: searchResultFromServer})
                     }
                 })
         }
@@ -60,7 +62,15 @@ class Search extends Component {
                     <ol className="books-grid">
                         {
                             this.state.searchResult.map(book => {
-                                return <li key={book.id}><Book bookProp={book}/></li>
+                                let shelfIndicator = "NONE"
+                                const index = this.props.booksOnShelves.findIndex(b => {
+                                    return b.id === book.id
+                                })
+                                if (index !== -1) {
+                                    shelfIndicator = this.props.booksOnShelves[index].shelf
+                                }
+                                return <li key={book.id}><Book bookProp={book} shelfIndicator={shelfIndicator}/>
+                                </li>
                             })
                         }
                     </ol>
