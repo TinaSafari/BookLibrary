@@ -19,6 +19,22 @@ class BooksApp extends React.Component {
             })
     }
 
+    updateBookshelf(book) {
+        console.log(book)
+        let BooksInState = this.state.Books;
+        const index = BooksInState.findIndex(b => {
+            return b.id === book.id
+        })
+        //if findIndex doesn't find a book it will return -1
+        if (index === -1) {
+            console.log("didn't find the book that i wanted to update")
+            return;
+        }
+        BooksInState.splice(index,1,book)
+        this.setState({Books: BooksInState})
+    }
+
+
     render() {
         console.log(this.state.Books)
         return (
