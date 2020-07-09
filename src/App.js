@@ -4,6 +4,7 @@ import './App.css'
 import {Route} from "react-router-dom";
 import Bookshelves from "./components/Bookshelves/Bookshelves";
 import Search from "./components/Search/Search";
+import Book from "./components/Book/Book";
 
 class BooksApp extends React.Component {
     state = {
@@ -19,10 +20,29 @@ class BooksApp extends React.Component {
             })
     }
 
+    updateBookshelf(book) {
+        console.log(book)
+        let BooksInState = this.state.Books;
+        const index = BooksInState.findIndex(b => {
+            return b.id === book.id
+        })
+        //if findIndex doesn't find a book it will return -1
+        if (index === -1) {
+            console.log("didn't find the book that i wanted to update")
+            return;
+        }
+        BooksInState.splice(index,1,book)
+        this.setState({Books: BooksInState})
+    }
+
+
     render() {
         console.log(this.state.Books)
         return (
             <div>
+                {/*<Book BooksInState={this.state.Books}/>*/}
+
+
                 <Route exact path='/' render={() => (
                     // TODO add bookshelves component here
                     <Bookshelves bookdata={this.state.Books}/>

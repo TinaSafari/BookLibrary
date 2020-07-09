@@ -33,8 +33,11 @@ title: "The Linux Command Line"
 //props #2 shelfIndicator that indicates the book's shelf. Possible values are: currentlyReading, wantToRead, read, NONE
 class Book extends Component {
     render() {
+
+
         const defaultValue = this.props.bookProp.shelf || this.props.shelfIndicator
         const imageURL = ((this.props.bookProp.imageLinks) ? (this.props.bookProp.imageLinks.thumbnail) : "https://i2.pngguru.com/preview/220/955/649/book-cover-books-school-supplies-watercolor-paint-wet-ink-red-rectangle-png-clipart-thumbnail.jpg")
+
         return (
             <div className="book">
                 <div className="book-top">
