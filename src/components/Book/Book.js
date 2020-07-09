@@ -32,9 +32,20 @@ title: "The Linux Command Line"
 
 //props #2 shelfIndicator that indicates the book's shelf. Possible values are: currentlyReading, wantToRead, read, NONE
 class Book extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.updateBook = this.updateBook.bind(this);
+    }
+
+    updateBook(newShelf) {
+        console.log("i'm inside my update book function")
+        this.props.bookProp.shelf = newShelf
+        this.props.onUpdate(this.props.bookProp);
+    }
+
     render() {
-
-
         const defaultValue = this.props.bookProp.shelf || this.props.shelfIndicator
         const imageURL = ((this.props.bookProp.imageLinks) ? (this.props.bookProp.imageLinks.thumbnail) : "https://i2.pngguru.com/preview/220/955/649/book-cover-books-school-supplies-watercolor-paint-wet-ink-red-rectangle-png-clipart-thumbnail.jpg")
 
@@ -50,6 +61,7 @@ class Book extends Component {
                     <div className="book-shelf-changer">
                         <select value={defaultValue} onChange={(event => {
                             alert(event.target.value)
+                            this.updateBook(event.target.value)
                         })}>
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>

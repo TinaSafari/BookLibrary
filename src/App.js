@@ -4,11 +4,16 @@ import './App.css'
 import {Route} from "react-router-dom";
 import Bookshelves from "./components/Bookshelves/Bookshelves";
 import Search from "./components/Search/Search";
-import Book from "./components/Book/Book";
 
 class BooksApp extends React.Component {
-    state = {
-        Books: []
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            Books: []
+        }
+
+        this.updateBookshelf = this.updateBookshelf.bind(this);
     }
 
     componentDidMount() {
@@ -21,6 +26,7 @@ class BooksApp extends React.Component {
     }
 
     updateBookshelf(book) {
+        console.log("I'm updating my state")
         console.log(book)
         let BooksInState = this.state.Books;
         const index = BooksInState.findIndex(b => {
@@ -40,12 +46,12 @@ class BooksApp extends React.Component {
         console.log(this.state.Books)
         return (
             <div>
-                {/*<Book BooksInState={this.state.Books}/>*/}
-
 
                 <Route exact path='/' render={() => (
                     // TODO add bookshelves component here
-                    <Bookshelves bookdata={this.state.Books}/>
+                    <Bookshelves bookdata={this.state.Books}
+                                 onUpdate={this.updateBookshelf}
+                    />
 
                 )}
                 />

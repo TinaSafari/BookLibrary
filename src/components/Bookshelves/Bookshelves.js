@@ -12,12 +12,23 @@ class Bookshelves extends Component {
                     <h1>MyReads</h1>
                 </div>
 
-
                 <div>
-                    <Bookshelf bookslist={this.props.bookdata} shelfindicator='currentlyReading'/>
-                    <Bookshelf bookslist={this.props.bookdata} shelfindicator='wantToRead'/>
-                    <Bookshelf bookslist={this.props.bookdata} shelfindicator='read'/>
+                    <Bookshelf bookslist={this.props.bookdata}
+                               shelfindicator='currentlyReading'
+                               onUpdate={this.props.onUpdate}/>
+
+                    <Bookshelf bookslist={this.props.bookdata}
+                               shelfindicator='wantToRead'
+                               onUpdate={this.props.onUpdate}/>
+
+                    <Bookshelf bookslist={this.props.bookdata}
+                               shelfindicator='read'
+                               onUpdate={this.props.onUpdate}/>
+                    <Bookshelf bookslist={this.props.bookdata}
+                               shelfindicator='NONE'
+                               onUpdate={this.props.onUpdate}/>
                     <div>
+
                         <Link
                             to='/search'
                             className='open-search'

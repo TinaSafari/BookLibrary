@@ -11,7 +11,10 @@ class Bookshelf extends Component {
             this.title = 'Currently Reading'
         } else if (this.props.shelfindicator === 'wantToRead') {
             this.title = 'Want to Read'
-        } else {
+        } else if(this.props.shelfindicator === 'NONE'){
+            this.title = 'None'
+        }
+        else {
             this.title = 'Read'
         }
 
@@ -25,11 +28,12 @@ class Bookshelf extends Component {
                                     book.shelf === this.props.shelfindicator
                                 )
                             ).map(book => {
-                                return <li><Book bookProp={book}
+                                return <li><Book bookProp={book} onUpdate={this.props.onUpdate}
                                 /></li>
                             })
                         }
                     </ol>
+
                 </div>
             </div>
         )
