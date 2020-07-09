@@ -38,6 +38,7 @@ class Search extends Component {
 
     render() {
         console.log(this.state)
+        console.log(this.props)
         const {rawUserInput} = this.state
         return (
             <div className="search-books">
@@ -55,7 +56,6 @@ class Search extends Component {
                                 value={rawUserInput}
                                 onChange={this.updateQuery}/>
                         </form>
-
                     </div>
                 </div>
                 <div className="search-books-results">
@@ -69,7 +69,12 @@ class Search extends Component {
                                 if (index !== -1) {
                                     shelfIndicator = this.props.booksOnShelves[index].shelf
                                 }
-                                return <li key={book.id}><Book bookProp={book} shelfIndicator={shelfIndicator}/>
+                                return <li key={book.id}><Book bookProp={book}
+                                                               shelfIndicator={shelfIndicator}
+                                                               onAdd={this.props.onAdd}
+                                                               onUpdate={this.props.onUpdate}
+                                                               onRemove={this.props.onRemove}
+                                />
                                 </li>
                             })
                         }

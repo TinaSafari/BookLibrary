@@ -14,6 +14,8 @@ class BooksApp extends React.Component {
         }
 
         this.updateBookshelf = this.updateBookshelf.bind(this);
+        this.addBookOnShelf = this.addBookOnShelf.bind(this);
+        this.removeBook = this.removeBook.bind(this);
     }
 
     componentDidMount() {
@@ -41,6 +43,24 @@ class BooksApp extends React.Component {
         this.setState({Books: BooksInState})
     }
 
+    addBookOnShelf(book) {
+        let BooksInState = this.state.Books;
+        // If we already have it, don't do anything
+        if (this.state.Books.find(existingBooks => existingBooks.id === book.id)) {
+            return;
+        }
+        BooksInState.push(book);
+        this.setState({Books: BooksInState})
+    }
+
+    removeBook(book) {
+        console.log(book.id)
+        let BooksInState = this.state.Books;
+        console.log(BooksInState)
+        BooksInState = BooksInState.filter(currentBook => currentBook.id !== book.id);
+        console.log(BooksInState)
+        this.setState({Books: BooksInState})
+    }
 
     render() {
         console.log(this.state.Books)
@@ -49,15 +69,20 @@ class BooksApp extends React.Component {
 
                 <Route exact path='/' render={() => (
                     // TODO add bookshelves component here
-                    <Bookshelves bookdata={this.state.Books}
+                    <Bookshelves bookData={this.state.Books}
                                  onUpdate={this.updateBookshelf}
+                                 onRemove={this.removeBook}
                     />
 
                 )}
                 />
                 <Route path='/search' render={({history}) => (
                     //TODO add search component here
-                    <Search booksOnShelves={this.state.Books}/>
+                    <Search booksOnShelves={this.state.Books}
+                            onAdd={this.addBookOnShelf}
+                            onUpdate={this.updateBookshelf}
+                            onRemove={this.removeBook}
+                    />
                     // alert('I am inside the search')
                 )}
                 />

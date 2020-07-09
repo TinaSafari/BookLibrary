@@ -28,8 +28,11 @@ class Bookshelf extends Component {
                                     book.shelf === this.props.shelfindicator
                                 )
                             ).map(book => {
-                                return <li><Book bookProp={book} onUpdate={this.props.onUpdate}
-                                /></li>
+                                return <li><Book bookProp={book}
+                                                 onUpdate={this.props.onUpdate}
+                                                 onAdd={this.props.onAdd}
+                                                 onRemove={this.props.onRemove}/>
+                                </li>
                             })
                         }
                     </ol>
