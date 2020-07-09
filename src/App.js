@@ -4,6 +4,7 @@ import './App.css'
 import {Route} from "react-router-dom";
 import Bookshelves from "./components/Bookshelves/Bookshelves";
 import Search from "./components/Search/Search";
+import Book from "./components/Book/Book";
 
 class BooksApp extends React.Component {
     state = {
@@ -39,6 +40,9 @@ class BooksApp extends React.Component {
         console.log(this.state.Books)
         return (
             <div>
+                {/*<Book BooksInState={this.state.Books}/>*/}
+
+
                 <Route exact path='/' render={() => (
                     // TODO add bookshelves component here
                     <Bookshelves bookdata={this.state.Books}/>
