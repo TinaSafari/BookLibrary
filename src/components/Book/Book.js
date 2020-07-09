@@ -32,9 +32,47 @@ title: "The Linux Command Line"
 
 //props #2 shelfIndicator that indicates the book's shelf. Possible values are: currentlyReading, wantToRead, read, NONE
 class Book extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.onChangeHandler = this.onChangeHandler.bind(this);
+        this.addBook = this.addBook.bind(this);
+        this.removeBook = this.removeBook.bind(this);
+        this.updateBook = this.updateBook.bind(this);
+    }
+
+    onChangeHandler(newShelf) {
+        console.log(this.props)
+        console.log("i'm inside my onChangeHandler function")
+        if (newShelf === "NONE") {
+            this.removeBook()
+        } else if (!this.props.bookProp.shelf) {
+            this.addBook(newShelf)
+        } else {
+            this.updateBook(newShelf)
+        }
+    }
+
+    updateBook(newShelf) {
+        console.log("i'm inside my update book function")
+        this.props.bookProp.shelf = newShelf
+        console.log(this.props.bookProp)
+        this.props.onUpdate(this.props.bookProp);
+    }
+
+    addBook(newShelf) {
+        console.log("i'm inside my new book function")
+        this.props.bookProp.shelf = newShelf
+        this.props.onAdd(this.props.bookProp);
+    }
+
+    removeBook() {
+        console.log("i'm deleting book")
+        this.props.onRemove(this.props.bookProp);
+    }
+
     render() {
-
-
         const defaultValue = this.props.bookProp.shelf || this.props.shelfIndicator
         const imageURL = ((this.props.bookProp.imageLinks) ? (this.props.bookProp.imageLinks.thumbnail) : "https://i2.pngguru.com/preview/220/955/649/book-cover-books-school-supplies-watercolor-paint-wet-ink-red-rectangle-png-clipart-thumbnail.jpg")
 
@@ -49,7 +87,9 @@ class Book extends Component {
                     </div>
                     <div className="book-shelf-changer">
                         <select value={defaultValue} onChange={(event => {
+                            console.log(this.props)
                             alert(event.target.value)
+                            this.onChangeHandler(event.target.value)
                         })}>
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>

@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 class Bookshelves extends Component {
     render() {
-        console.log(this.props.bookdata)
+        console.log(this.props.bookData)
         return (
             <div>
 
@@ -12,12 +12,32 @@ class Bookshelves extends Component {
                     <h1>MyReads</h1>
                 </div>
 
-
                 <div>
-                    <Bookshelf bookslist={this.props.bookdata} shelfindicator='currentlyReading'/>
-                    <Bookshelf bookslist={this.props.bookdata} shelfindicator='wantToRead'/>
-                    <Bookshelf bookslist={this.props.bookdata} shelfindicator='read'/>
+                    <Bookshelf bookslist={this.props.bookData}
+                               shelfindicator='currentlyReading'
+                               onUpdate={this.props.onUpdate}
+                               onAdd={this.props.onAdd}
+                               onRemove={this.props.onRemove}/>
+
+                    <Bookshelf bookslist={this.props.bookData}
+                               shelfindicator='wantToRead'
+                               onUpdate={this.props.onUpdate}
+                               onAdd={this.props.onAdd}
+                               onRemove={this.props.onRemove}/>
+
+                    <Bookshelf bookslist={this.props.bookData}
+                               shelfindicator='read'
+                               onUpdate={this.props.onUpdate}
+                               onAdd={this.props.onAdd}
+                               onRemove={this.props.onRemove}/>
+
+                    <Bookshelf bookslist={this.props.bookData}
+                               shelfindicator='NONE'
+                               onUpdate={this.props.onUpdate}
+                               onAdd={this.props.onAdd}
+                               onRemove={this.props.onRemove}/>
                     <div>
+
                         <Link
                             to='/search'
                             className='open-search'
