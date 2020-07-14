@@ -51,7 +51,6 @@ class BooksApp extends Component {
         console.log(book.id)
         let BooksInState = [...this.state.Books]
         console.log(BooksInState)
-        this.updateApi(book)
         BooksInState = BooksInState.filter(currentBook => currentBook.id !== book.id);
         console.log(BooksInState)
         this.setState({Books: BooksInState})
