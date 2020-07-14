@@ -3,7 +3,7 @@ import Book from "../../Book/Book";
 import '../../../App.css'
 
 const Bookshelf = (props) => {
-    let title = ''
+    let title
     if (props.shelfindicator === 'currentlyReading') {
         title = 'Currently Reading'
     } else if (props.shelfindicator === 'wantToRead') {

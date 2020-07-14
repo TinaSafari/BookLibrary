@@ -13,7 +13,6 @@ class Search extends Component {
     }
 
     updateQuery = (event) => {
-        // we lost space here
         this.setState({rawUserInput: event.target.value})
         const trimmedUserInput = event.target.value.trim()
         this.setState({query: trimmedUserInput})

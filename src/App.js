@@ -31,6 +31,7 @@ class BooksApp extends Component {
             console.log("didn't find the book that i wanted to update")
             return;
         }
+        this.updateApi(book)
         BooksInState.splice(index, 1, book)
         this.setState({Books: BooksInState})
     }
@@ -41,6 +42,7 @@ class BooksApp extends Component {
         if (this.state.Books.find(existingBooks => existingBooks.id === book.id)) {
             return;
         }
+        this.updateApi(book)
         BooksInState.push(book);
         this.setState({Books: BooksInState})
     }
@@ -49,10 +51,23 @@ class BooksApp extends Component {
         console.log(book.id)
         let BooksInState = [...this.state.Books]
         console.log(BooksInState)
+        this.updateApi(book)
         BooksInState = BooksInState.filter(currentBook => currentBook.id !== book.id);
         console.log(BooksInState)
         this.setState({Books: BooksInState})
     }
+
+    // book with updated shelf
+    updateApi = (book) => {
+        const previousShelf = [...this.state.Books]
+        BooksAPI.update(book, book.shelf).then((response) => {
+            console.log(response)
+            if(response.error){
+                return previousShelf
+                // need to rollback the state change
+            }
+            console.log('bookAPI updating')
+        }) }
 
     render() {
         console.log("APP RENDR")

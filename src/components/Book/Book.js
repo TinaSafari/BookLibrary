@@ -31,20 +31,7 @@ title: "The Linux Command Line"
  */
 
 //props #2 shelfIndicator that indicates the book's shelf. Possible values are: currentlyReading, wantToRead, read, NONE
-const book = (props) => {
-
-    // constructor(props) {
-    //     super(props);
-    //     state = {
-    //         selectState: props.shelfIndicator
-    //     };
-    //
-    //     onChangeHandler = onChangeHandler.bind(this);
-    //     addBook = addBook.bind(this);
-    //     removeBook = removeBook.bind(this);
-    //     updateBook = updateBook.bind(this);
-    //     // updateSelectState = updateSelectState.bind(this);
-    // }
+const Book = (props) => {
 
     const onChangeHandler = (newShelf) => {
         console.log("i'm inside my onChangeHandler function")
@@ -60,7 +47,6 @@ const book = (props) => {
     const updateBook = (newShelf) => {
         console.log("i'm inside my update book function")
         props.bookProp.shelf = newShelf
-        // console.log(props.bookProp)
         props.onUpdate(props.bookProp);
     }
 
@@ -74,17 +60,9 @@ const book = (props) => {
         console.log("i'm deleting book")
         props.onRemove(props.bookProp);
     }
-    //
-    // updateSelectState(){
-    //     setState({
-    //         selectState: props.shelfIndicator
-    //     })
-    // }
+
 
     const imageURL = ((props.bookProp.imageLinks) ? (props.bookProp.imageLinks.thumbnail) : "https://i2.pngguru.com/preview/220/955/649/book-cover-books-school-supplies-watercolor-paint-wet-ink-red-rectangle-png-clipart-thumbnail.jpg")
-    // console.log(props)
-    // setState()
-    // console.log(props.bookProp.title + " | " + state.selectState)
     console.log("BOOK RENDR")
 
     return (
@@ -116,4 +94,4 @@ const book = (props) => {
     )
 }
 
-export default book;
+export default Book;
