@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-//This Book component has two props:
+//Book component has two props:
 // props#1 bookProp that contain a book object that has many values like title
 /*
-this is book object:
+is book object:
 allowAnonLogging: true
 authors: ["William E. Shotts, Jr."]
 averageRating: 4
@@ -31,81 +31,66 @@ title: "The Linux Command Line"
  */
 
 //props #2 shelfIndicator that indicates the book's shelf. Possible values are: currentlyReading, wantToRead, read, NONE
-class Book extends Component {
+const Book = (props) => {
 
-    constructor(props) {
-        super(props);
-
-        this.onChangeHandler = this.onChangeHandler.bind(this);
-        this.addBook = this.addBook.bind(this);
-        this.removeBook = this.removeBook.bind(this);
-        this.updateBook = this.updateBook.bind(this);
-    }
-
-    onChangeHandler(newShelf) {
-        console.log(this.props)
+    const onChangeHandler = (newShelf) => {
         console.log("i'm inside my onChangeHandler function")
         if (newShelf === "NONE") {
-            this.removeBook()
-        } else if (!this.props.bookProp.shelf) {
-            this.addBook(newShelf)
+            removeBook()
+        } else if (!props.bookProp.shelf) {
+            addBook(newShelf)
         } else {
-            this.updateBook(newShelf)
+            updateBook(newShelf)
         }
     }
 
-    updateBook(newShelf) {
+    const updateBook = (newShelf) => {
         console.log("i'm inside my update book function")
-        this.props.bookProp.shelf = newShelf
-        console.log(this.props.bookProp)
-        this.props.onUpdate(this.props.bookProp);
+        props.onUpdate(props.bookProp, newShelf);
     }
 
-    addBook(newShelf) {
+    const addBook = (newShelf) => {
         console.log("i'm inside my new book function")
-        this.props.bookProp.shelf = newShelf
-        this.props.onAdd(this.props.bookProp);
+        props.bookProp.shelf = newShelf
+        props.onAdd(props.bookProp);
     }
 
-    removeBook() {
+    const removeBook = () => {
         console.log("i'm deleting book")
-        this.props.onRemove(this.props.bookProp);
+        props.onRemove(props.bookProp);
     }
 
-    render() {
-        const defaultValue = this.props.bookProp.shelf || this.props.shelfIndicator
-        const imageURL = ((this.props.bookProp.imageLinks) ? (this.props.bookProp.imageLinks.thumbnail) : "https://i2.pngguru.com/preview/220/955/649/book-cover-books-school-supplies-watercolor-paint-wet-ink-red-rectangle-png-clipart-thumbnail.jpg")
 
-        return (
-            <div className="book">
-                <div className="book-top">
-                    <div className="book-cover" style={{
-                        width: 128,
-                        height: 193,
-                        backgroundImage: `url( ${imageURL} )`
-                    }}>
-                    </div>
-                    <div className="book-shelf-changer">
-                        <select value={defaultValue} onChange={(event => {
-                            console.log(this.props)
-                            alert(event.target.value)
-                            this.onChangeHandler(event.target.value)
-                        })}>
-                            <option value="move" disabled>Move to...</option>
-                            <option value="currentlyReading">Currently Reading</option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="NONE">None</option>
-                        </select>
-                    </div>
+    const imageURL = ((props.bookProp.imageLinks) ? (props.bookProp.imageLinks.thumbnail) : "https://i2.pngguru.com/preview/220/955/649/book-cover-books-school-supplies-watercolor-paint-wet-ink-red-rectangle-png-clipart-thumbnail.jpg")
+    console.log("BOOK RENDR")
+
+    return (
+        <div className="book">
+            <div className="book-top">
+                <div className="book-cover" style={{
+                    width: 128,
+                    height: 193,
+                    backgroundImage: `url( ${imageURL} )`
+                }}>
                 </div>
-                <div className="book-title">{this.props.bookProp.title}</div>
-                <div className="book-authors">{this.props.bookProp.authors}</div>
-                <div className="book-pageCount">{this.props.bookProp.pageCount}</div>
-                <div className="book-language">{this.props.bookProp.language}</div>
+                <div className="book-shelf-changer">
+                    <select value={props.shelfIndicator} onChange={(event => {
+                        onChangeHandler(event.target.value)
+                    })}>
+                        <option value="move" disabled>Move to...</option>
+                        <option value="currentlyReading">Currently Reading</option>
+                        <option value="wantToRead">Want to Read</option>
+                        <option value="read">Read</option>
+                        <option value="NONE">None</option>
+                    </select>
+                </div>
             </div>
-        )
-    }
+            <div className="book-title">{props.bookProp.title}</div>
+            <div className="book-authors">{props.bookProp.authors}</div>
+            <div className="book-pageCount">{props.bookProp.pageCount}</div>
+            <div className="book-language">{props.bookProp.language}</div>
+        </div>
+    )
 }
 
 export default Book;

@@ -13,7 +13,6 @@ class Search extends Component {
     }
 
     updateQuery = (event) => {
-        // we lost space here
         this.setState({rawUserInput: event.target.value})
         const trimmedUserInput = event.target.value.trim()
         this.setState({query: trimmedUserInput})
@@ -37,9 +36,8 @@ class Search extends Component {
     }
 
     render() {
-        console.log(this.state)
-        console.log(this.props)
         const {rawUserInput} = this.state
+        console.log("SEARCH RENDR")
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -69,6 +67,7 @@ class Search extends Component {
                                 if (index !== -1) {
                                     shelfIndicator = this.props.booksOnShelves[index].shelf
                                 }
+                                console.log(book.title + " : " + shelfIndicator)
                                 return <li key={book.id}><Book bookProp={book}
                                                                shelfIndicator={shelfIndicator}
                                                                onAdd={this.props.onAdd}
