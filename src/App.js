@@ -8,10 +8,12 @@ import Search from "./components/Search/Search";
 class BooksApp extends Component {
 
     state = {
-        Books: []
+        Books: [],
+        name: "TINA"
     }
 
     componentDidMount = () => {
+        console.log("DID MOUNTs")
         BooksAPI.getAll()
             .then((Books) => {
                 this.setState(() => ({
@@ -20,7 +22,7 @@ class BooksApp extends Component {
             })
     }
 
-    updateBookshelf = (book) => {
+    updateBookshelf = (book, newShelf) => {
         console.log("I'm updating my book shelf")
         let BooksInState = [...this.state.Books]
         const index = BooksInState.findIndex(b => {
@@ -31,9 +33,11 @@ class BooksApp extends Component {
             console.log("didn't find the book that i wanted to update")
             return;
         }
-        this.updateApi(book)
+        this.updateApi(book, newShelf)
+        book.shelf = newShelf
         BooksInState.splice(index, 1, book)
-        this.setState({Books: BooksInState})
+        this.setState({Books: BooksInState, name: "SOHAIL"})
+        console.log("UPDATED THE STATE")
     }
 
     addBookOnShelf = (book) => {
@@ -48,25 +52,37 @@ class BooksApp extends Component {
     }
 
     removeBook = (book) => {
-        console.log(book.id)
         let BooksInState = [...this.state.Books]
-        console.log(BooksInState)
         BooksInState = BooksInState.filter(currentBook => currentBook.id !== book.id);
         console.log(BooksInState)
+        this.updateApi(book)
+        BooksInState.push(book);
+        console.log("updateAPI remove book")
         this.setState({Books: BooksInState})
     }
 
-    // book with updated shelf
-    updateApi = (book) => {
-        const previousShelf = [...this.state.Books]
-        BooksAPI.update(book, book.shelf).then((response) => {
-            console.log(response)
-            if(response.error){
-                return previousShelf
-                // need to rollback the state change
+    updateApi = (book, newShelf) => {
+
+        const oldShelf = book.shelf
+        // console.log(oldShelf)
+
+        BooksAPI.update(book, newShelf).then((response) => {
+            if (response.error) {
+                console.log("WE GOT AN ERROR")
+                alert("WE ARE SORRY, WE ARE REVERTING YOUR CHANGE BACK")
+                console.log(book)
+                console.log(oldShelf)
+                let BooksInState = [...this.state.Books]
+                book.shelf = oldShelf
+                const index = BooksInState.findIndex(b => {
+                    return b.id === book.id
+                })
+                BooksInState.splice(index, 1, book)
+                this.setState({Books: BooksInState, name: "TINA"})
             }
             console.log('bookAPI updating')
-        }) }
+        })
+    }
 
     render() {
         console.log("APP RENDR")

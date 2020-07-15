@@ -46,8 +46,7 @@ const Book = (props) => {
 
     const updateBook = (newShelf) => {
         console.log("i'm inside my update book function")
-        props.bookProp.shelf = newShelf
-        props.onUpdate(props.bookProp);
+        props.onUpdate(props.bookProp, newShelf);
     }
 
     const addBook = (newShelf) => {
