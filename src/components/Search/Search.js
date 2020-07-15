@@ -37,7 +37,6 @@ class Search extends Component {
 
     render() {
         const {rawUserInput} = this.state
-        console.log("SEARCH RENDR")
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -67,7 +66,6 @@ class Search extends Component {
                                 if (index !== -1) {
                                     shelfIndicator = this.props.booksOnShelves[index].shelf
                                 }
-                                console.log(book.title + " : " + shelfIndicator)
                                 return <li key={book.id}><Book bookProp={book}
                                                                shelfIndicator={shelfIndicator}
                                                                onAdd={this.props.onAdd}

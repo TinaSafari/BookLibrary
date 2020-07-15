@@ -8,12 +8,10 @@ import Search from "./components/Search/Search";
 class BooksApp extends Component {
 
     state = {
-        Books: [],
-        name: "TINA"
+        Books: []
     }
 
     componentDidMount = () => {
-        console.log("DID MOUNTs")
         BooksAPI.getAll()
             .then((Books) => {
                 this.setState(() => ({
@@ -23,21 +21,18 @@ class BooksApp extends Component {
     }
 
     updateBookshelf = (book, newShelf) => {
-        console.log("I'm updating my book shelf")
         let BooksInState = [...this.state.Books]
         const index = BooksInState.findIndex(b => {
             return b.id === book.id
         })
         //if findIndex doesn't find a book it will return -1
         if (index === -1) {
-            console.log("didn't find the book that i wanted to update")
             return;
         }
         this.updateApi(book, newShelf)
         book.shelf = newShelf
         BooksInState.splice(index, 1, book)
-        this.setState({Books: BooksInState, name: "SOHAIL"})
-        console.log("UPDATED THE STATE")
+        this.setState({Books: BooksInState})
     }
 
     addBookOnShelf = (book, newShelf) => {
@@ -58,21 +53,15 @@ class BooksApp extends Component {
         this.updateApi(book, newShelf)
         book.shelf = newShelf
         BooksInState.push(book);
-        console.log("updateAPI remove book")
         this.setState({Books: BooksInState})
     }
 
     updateApi = (book, newShelf) => {
-
         const oldShelf = book.shelf
         // console.log(oldShelf)
-
         BooksAPI.update(book, newShelf).then((response) => {
             if (response.error) {
-                console.log("WE GOT AN ERROR")
                 alert("WE ARE SORRY, WE ARE REVERTING YOUR CHANGE BACK")
-                console.log(book)
-                console.log(oldShelf)
                 let BooksInState = [...this.state.Books]
                 book.shelf = oldShelf
                 const index = BooksInState.findIndex(b => {
@@ -81,12 +70,10 @@ class BooksApp extends Component {
                 BooksInState.splice(index, 1, book)
                 this.setState({Books: BooksInState, name: "TINA"})
             }
-            console.log('bookAPI updating')
         })
     }
 
     render() {
-        console.log("APP RENDR")
         return (
             <div>
                 <Route exact path='/' render={() => (

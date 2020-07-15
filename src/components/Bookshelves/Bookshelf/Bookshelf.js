@@ -13,7 +13,6 @@ const Bookshelf = (props) => {
     } else {
         title = 'Read'
     }
-    console.log("Bookshelf RENDR")
     return (
         <div className="bookshelf">
             <h2 className="bookshelf-title">{title}</h2>
