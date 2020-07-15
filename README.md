@@ -59,7 +59,7 @@ getAll()
 Method Signature:
 
 ```js
-update(book, shelf)
+update(Book, shelf)
 ```
 
 * book: `<Object>` containing at minimum an `id` attribute
