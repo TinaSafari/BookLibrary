@@ -36,7 +36,7 @@ const Book = (props) => {
     const onChangeHandler = (newShelf) => {
         console.log("i'm inside my onChangeHandler function")
         if (newShelf === "NONE") {
-            removeBook()
+            removeBook(newShelf)
         } else if (!props.bookProp.shelf) {
             addBook(newShelf)
         } else {
@@ -51,13 +51,12 @@ const Book = (props) => {
 
     const addBook = (newShelf) => {
         console.log("i'm inside my new book function")
-        props.bookProp.shelf = newShelf
-        props.onAdd(props.bookProp);
+        props.onAdd(props.bookProp, newShelf);
     }
 
-    const removeBook = () => {
+    const removeBook = (newShelf) => {
         console.log("i'm deleting book")
-        props.onRemove(props.bookProp);
+        props.onRemove(props.bookProp, newShelf);
     }
 
 

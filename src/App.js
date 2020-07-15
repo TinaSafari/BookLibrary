@@ -40,22 +40,23 @@ class BooksApp extends Component {
         console.log("UPDATED THE STATE")
     }
 
-    addBookOnShelf = (book) => {
+    addBookOnShelf = (book, newShelf) => {
         let BooksInState = [...this.state.Books]
         // If we already have it, don't do anything
         if (this.state.Books.find(existingBooks => existingBooks.id === book.id)) {
             return;
         }
-        this.updateApi(book)
+        this.updateApi(book, newShelf)
+        book.shelf = newShelf
         BooksInState.push(book);
         this.setState({Books: BooksInState})
     }
 
-    removeBook = (book) => {
+    removeBook = (book, newShelf) => {
         let BooksInState = [...this.state.Books]
-        BooksInState = BooksInState.filter(currentBook => currentBook.id !== book.id);
-        console.log(BooksInState)
-        this.updateApi(book)
+        if(this.state.Books.filter(currentBook => currentBook.id !== book.id)){}
+        this.updateApi(book, newShelf)
+        book.shelf = newShelf
         BooksInState.push(book);
         console.log("updateAPI remove book")
         this.setState({Books: BooksInState})
