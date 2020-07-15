@@ -6,6 +6,7 @@ To get started developing right away:
 
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
+* Open the web app on http://localhost:3000/
 
 ## What You're Getting
 ```bash
