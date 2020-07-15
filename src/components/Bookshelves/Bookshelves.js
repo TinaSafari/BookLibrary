@@ -3,7 +3,6 @@ import Bookshelf from "./Bookshelf/Bookshelf";
 import {Link} from "react-router-dom";
 
 const  Bookshelves = (props) => {
-    console.log("Bookshelves RENDR")
     return (
         <div>
 
