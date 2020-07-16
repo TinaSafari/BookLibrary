@@ -49,10 +49,18 @@ class BooksApp extends Component {
 
     removeBook = (book, newShelf) => {
         let BooksInState = [...this.state.Books]
-        if(this.state.Books.filter(currentBook => currentBook.id !== book.id)){}
+        const index = BooksInState.findIndex(currentBook => {
+           return currentBook.id === book.id
+        })
+        console.log(index)
+        //if findIndex doesn't find a book it will return -1
+        if (index === -1) {
+            return;
+        }
         this.updateApi(book, newShelf)
         book.shelf = newShelf
-        BooksInState.push(book);
+        BooksInState.splice(index, 1);
+        console.log(BooksInState)
         this.setState({Books: BooksInState})
     }
 
