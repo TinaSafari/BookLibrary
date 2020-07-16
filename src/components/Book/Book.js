@@ -6,14 +6,19 @@ import React from 'react'
 const Book = (props) => {
 
     const onChangeHandler = (newShelf) => {
+        console.log(newShelf)
+        console.log(props.bookProp)
         if (newShelf === "NONE") {
+            //if user select NONE from drop-down
             removeBook(newShelf)
-        } else if (!props.bookProp.shelf) {
+        } else if (props.shelfIndicator === "NONE") {
+            //if user selects any option but NONE when the current shelf is none-it means this is an add
             addBook(newShelf)
         } else {
             updateBook(newShelf)
         }
     }
+
 
     const updateBook = (newShelf) => {
         props.onUpdate(props.bookProp, newShelf);

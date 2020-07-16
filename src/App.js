@@ -52,7 +52,6 @@ class BooksApp extends Component {
         const index = BooksInState.findIndex(currentBook => {
            return currentBook.id === book.id
         })
-        console.log(index)
         //if findIndex doesn't find a book it will return -1
         if (index === -1) {
             return;
@@ -60,13 +59,11 @@ class BooksApp extends Component {
         this.updateApi(book, newShelf)
         book.shelf = newShelf
         BooksInState.splice(index, 1);
-        console.log(BooksInState)
         this.setState({Books: BooksInState})
     }
 
     updateApi = (book, newShelf) => {
         const oldShelf = book.shelf
-        // console.log(oldShelf)
         BooksAPI.update(book, newShelf).then((response) => {
             if (response.error) {
                 alert("WE ARE SORRY, WE ARE REVERTING YOUR CHANGE BACK")
