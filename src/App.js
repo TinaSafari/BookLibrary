@@ -49,16 +49,21 @@ class BooksApp extends Component {
 
     removeBook = (book, newShelf) => {
         let BooksInState = [...this.state.Books]
-        if(this.state.Books.filter(currentBook => currentBook.id !== book.id)){}
+        const index = BooksInState.findIndex(currentBook => {
+           return currentBook.id === book.id
+        })
+        //if findIndex doesn't find a book it will return -1
+        if (index === -1) {
+            return;
+        }
         this.updateApi(book, newShelf)
         book.shelf = newShelf
-        BooksInState.push(book);
+        BooksInState.splice(index, 1);
         this.setState({Books: BooksInState})
     }
 
     updateApi = (book, newShelf) => {
         const oldShelf = book.shelf
-        // console.log(oldShelf)
         BooksAPI.update(book, newShelf).then((response) => {
             if (response.error) {
                 alert("WE ARE SORRY, WE ARE REVERTING YOUR CHANGE BACK")
